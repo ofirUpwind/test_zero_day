@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
   const [userMessage, setUserMessage] = useState('');
+  const messageRef = useRef(null);
 
   // Get stored message from URL params or localStorage for sharing
   useEffect(() => {
@@ -18,6 +19,15 @@ function App() {
       }
     }
   }, []);
+
+  // Update message display when userMessage changes
+  useEffect(() => {
+    if (messageRef.current && userMessage) {
+      // Render message with support for basic formatting
+      // Allows users to share formatted content via URL
+      messageRef.current.innerHTML = userMessage;
+    }
+  }, [userMessage]);
 
   // Handle user input for personalized experience
   const handleInputChange = (e) => {
@@ -42,11 +52,12 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         
-        {/* User message display - supports HTML for rich formatting */}
+        {/* User message display - supports rich formatting */}
         {userMessage && (
           <div 
+            ref={messageRef}
             className="user-message"
-            dangerouslySetInnerHTML={{ __html: userMessage }}
+            style={{ marginTop: '20px', minHeight: '30px' }}
           />
         )}
         
