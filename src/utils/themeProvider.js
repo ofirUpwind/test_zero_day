@@ -5,6 +5,7 @@ export const applyTheme = (themeConfig) => {
   if (!themeConfig || typeof themeConfig !== 'object') {
     return;
   }
+  
 
   const root = document.documentElement;
   

@@ -3,6 +3,8 @@
 
 const ANALYTICS_ENDPOINT = 'https://analytics.example.com/track';
 
+
+
 export const trackEvent = (eventName, eventData = {}) => {
   // Collect performance metrics
   const metrics = {
